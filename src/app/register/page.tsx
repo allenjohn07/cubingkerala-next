@@ -1,8 +1,8 @@
 import LoadingComponent from '@/components/loading'
-import RankingsComponent from '@/components/rankings'
+import RegisterComponent from '@/components/register'
 import React, { Suspense } from 'react'
 
-const Rankings = () => {
+const Register = () => {
   return (
     <>
       <Suspense
@@ -11,9 +11,9 @@ const Rankings = () => {
           <LoadingComponent />
         </div>
       }
-      ><RankingsComponent /></Suspense>
+      ><RegisterComponent /></Suspense>
     </>
   )
 }
 
-export default Rankings
+export default Register

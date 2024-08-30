@@ -6,12 +6,12 @@ import { Button } from './ui/button'
 const CubingKeralaNavbar = () => {
   return (
     <header className="sticky top-0 z-50 bg-background shadow-sm py-2">
-        <div className="container flex items-center justify-between h-16 px-4 md:px-6">
-          <Link href="/" className="flex items-center gap-2" prefetch={false}>
+        <div className="container space-y-3 md:space-y-0 md:flex items-center justify-between h-20 md:h-18 py-2 md:py-6 px-4 md:px-6">
+          <Link href="/" className="flex items-center justify-center gap-2" prefetch={false}>
             <CuboidIcon className="w-6 h-6" />
             <span className="text-lg font-semibold">Cubing Kerala</span>
           </Link>
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="flex items-center justify-between gap-6">
             <Link href="/competitions" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
               Competitions
             </Link>
@@ -29,7 +29,7 @@ const CubingKeralaNavbar = () => {
               Login
             </Link>
           </nav>
-          <Sheet>
+          {/* <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <MenuIcon className="w-6 h-6" />
@@ -56,14 +56,14 @@ const CubingKeralaNavbar = () => {
                 </Link>
               </div>
             </SheetContent>
-          </Sheet>
+          </Sheet> */}
         </div>
       </header>
   )
 }
 
 
-function CuboidIcon(props: any) {
+function CuboidIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}
@@ -85,7 +85,7 @@ function CuboidIcon(props: any) {
   }
   
   
-  function MenuIcon(props: any) {
+  function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
       <svg
         {...props}

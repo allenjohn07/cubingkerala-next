@@ -1,8 +1,19 @@
-import React from 'react'
+import CompetitionsComponent from '@/components/competitions'
+import LoadingComponent from '@/components/loading'
+import React, { Suspense } from 'react'
 
 const Competitions = () => {
   return (
-    <div>Competitions</div>
+    <>
+      <Suspense
+        fallback={
+        <div className='flex items-center justify-center min-h-[50vh] w-full'>
+          <LoadingComponent />
+        </div>
+      }>
+        <CompetitionsComponent />
+      </Suspense>
+    </>
   )
 }
 
