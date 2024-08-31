@@ -1,9 +1,7 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useOnScreen } from "@/util/animation"
-import Link from "next/link"
 import CubingKeralaGetStarted from "./ck-getstarted"
 import CubingKeralaCubingLengends from "./ck-cubinglegends"
 import { CubingKeralaCalendars } from "./ck-calendar"
@@ -17,7 +15,7 @@ export default function HomeComponent() {
   const [ref4, isVisible4] = useOnScreen({ threshold: 0.1 });
 
   return (
-    <div className="flex flex-col pl-0 md:pl-8 min-h-[100dvh]">
+    <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
         <section ref={ref1} className="w-full min-h-screen relative">
           <motion.div
