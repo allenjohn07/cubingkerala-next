@@ -61,7 +61,13 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                 </div>
                                             </CardContent>
                                             <CardFooter className="bg-muted py-3 px-5 flex justify-between items-center">
-                                                <span className='text-sm flex font-semibold items-center gap-1'>{new Date(competition?.date?.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(competition?.date?.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                                <span className='text-sm flex font-semibold items-center gap-1'>
+                                                    {
+                                                        competition.date.from === competition.date.till
+                                                            ? new Date(competition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                                            : `${new Date(competition.date.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(competition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`
+                                                    }
+                                                </span>
                                                 <Link href={`https://www.worldcubeassociation.org/competitions/${competition.id}/register`}>
                                                     <Button className="rounded-none bg-green-400 hover:bg-green-500 text-black" variant="outline" size="sm">
                                                         Register
@@ -109,7 +115,13 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                 </div>
                                             </CardContent>
                                             <CardFooter className="bg-muted py-3 px-5 flex justify-between items-center">
-                                                <span className='text-sm flex font-semibold items-center gap-1'>{new Date(competition?.date?.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(competition?.date?.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                                <span className='text-sm flex font-semibold items-center gap-1'>
+                                                    {
+                                                        competition.date.from === competition.date.till
+                                                            ? new Date(competition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                                                            : `${new Date(competition.date.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(competition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`
+                                                    }
+                                                </span>
                                                 <Button className="rounded-none" disabled variant="outline" size="sm">
                                                     Completed
                                                 </Button>

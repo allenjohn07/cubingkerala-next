@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
-import { Button } from './ui/button'
 
 const CubingKeralaNavbar = () => {
   return (
-    <header className="sticky top-0 z-50 bg-background shadow-sm py-2">
+    <header className="bg-background shadow-sm py-2">
         <div className="container space-y-3 md:space-y-0 md:flex items-center justify-between h-20 md:h-18 py-2 md:py-6 px-4 md:px-6">
           <Link href="/" className="flex items-center justify-center gap-2" prefetch={false}>
             <CuboidIcon className="w-6 h-6" />
@@ -29,34 +27,6 @@ const CubingKeralaNavbar = () => {
               Login
             </Link>
           </nav>
-          {/* <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <MenuIcon className="w-6 h-6" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="md:hidden">
-              <div className="grid gap-4 p-4">
-                <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                  Competitions
-                </Link>
-                <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                  Members
-                </Link>
-                <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-                  Rankings
-                </Link>
-                <Link
-                  href="#"
-                  className="text-sm font-medium hover:underline underline-offset-4"
-                  prefetch={false}
-                >
-                  Login
-                </Link>
-              </div>
-            </SheetContent>
-          </Sheet> */}
         </div>
       </header>
   )
@@ -83,27 +53,6 @@ function CuboidIcon(props: React.SVGProps<SVGSVGElement>) {
       </svg>
     )
   }
-  
-  
-  function MenuIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-      <svg
-        {...props}
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <line x1="4" x2="20" y1="12" y2="12" />
-        <line x1="4" x2="20" y1="6" y2="6" />
-        <line x1="4" x2="20" y1="18" y2="18" />
-      </svg>
-    )
-  }
+
 
 export default CubingKeralaNavbar

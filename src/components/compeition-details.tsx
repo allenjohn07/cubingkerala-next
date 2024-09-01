@@ -4,57 +4,70 @@ import { CompetitionDetails } from '@/types/types'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
 import React from 'react'
 import "@cubing/icons";
+import dynamic from "next/dynamic";
+import { LatLngTuple } from "leaflet";
 
+const LeafletMap = dynamic(() => import("@/components/map"), {
+    ssr: false,
+    loading: () => <p>Loading...</p>,
+});
 
 const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetails }) => {
-
     console.log(compInfo);
 
+    const coordinates: LatLngTuple = [compInfo.venue.coordinates.latitude, compInfo.venue.coordinates.longitude];
 
     return (
         <div className="w-full mx-auto py-6 md:py-8 px-4 md:px-5">
-            <div className="grid gap-12">
-                <div>
-                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{compInfo.name}</h1>
-                    <p className="mt-4 text-muted-foreground">
-                        {new Date(compInfo?.date?.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(compInfo?.date?.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} | {compInfo.venue.name}, {compInfo.city}
-                    </p>
-                </div>
-                <div className="grid gap-8">
-                    <div>
-                        <h2 className="text-2xl font-bold">Event Details</h2>
-                        <div className="mt-4 grid gap-4">
-                            <div className="flex items-center gap-2">
-                                <div>
-                                    <p className="font-medium">Location</p>
-                                    <p className="text-muted-foreground">
-                                        {compInfo.venue.name}, {compInfo.venue.address}
-                                    </p>
+            <div className="grid gap-6">
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
+                    <div className='grid gap-6'>
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{compInfo.name}</h1>
+                            <p className="mt-4 text-muted-foreground">
+                                {new Date(compInfo?.date?.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(compInfo?.date?.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} | {compInfo.venue.name}, {compInfo.city}
+                            </p>
+                        </div>
+                        <div>
+                            <h2 className="text-2xl font-bold">Event Details</h2>
+                            <div className="mt-4 grid gap-4">
+                                <div className="flex items-center gap-2">
+                                    <div>
+                                        <p className="font-medium">Location</p>
+                                        <p className="text-muted-foreground">
+                                            {compInfo.venue.name}, {compInfo.venue.address}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <div>
-                                    <p className="font-medium">Events</p>
-                                    <div className='py-2'>
-                                        {
-                                            compInfo?.events.map((event, index) => (
-                                                <TooltipProvider key={index}>
-                                                    <Tooltip>
-                                                        <TooltipTrigger>
-                                                            <span className={`cubing-icon event-${event} pr-3`}></span>
-                                                        </TooltipTrigger>
-                                                        <TooltipContent className='bg-green-400 rounded-md text-xs p-1 text-black'>
-                                                            <p>{event}</p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-                                            ))
-                                        }
+                                <div className="flex items-center gap-2">
+                                    <div>
+                                        <p className="font-medium">Events</p>
+                                        <div className='py-2'>
+                                            {
+                                                compInfo?.events.map((event, index) => (
+                                                    <TooltipProvider key={index}>
+                                                        <Tooltip>
+                                                            <TooltipTrigger>
+                                                                <span className={`cubing-icon event-${event} pr-3`}></span>
+                                                            </TooltipTrigger>
+                                                            <TooltipContent className='bg-green-400 rounded-md text-xs p-1 text-black'>
+                                                                <p>{event}</p>
+                                                            </TooltipContent>
+                                                        </Tooltip>
+                                                    </TooltipProvider>
+                                                ))
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div>
+                        <LeafletMap coordinates={coordinates} address={compInfo.venue.address} />
+                    </div>
+                </div>
+                <div className="grid gap-6">
                     <div>
                         <h2 className="text-2xl font-bold">Important Information</h2>
                         <div className="mt-4 grid gap-4">
@@ -84,5 +97,4 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
     )
 }
 
-
-export default CompetitionDetailsComponent
+export default CompetitionDetailsComponent;
