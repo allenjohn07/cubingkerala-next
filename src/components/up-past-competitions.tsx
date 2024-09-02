@@ -132,7 +132,9 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                             }
                         </div>
                         <ScrollBar orientation="horizontal" />
-                    </ScrollArea> : <div className='min-h-[200px] flex items-center'><h1 className='text-lg lg:text-2xl font-semibold text-red-500'>No competitions to display!</h1></div>
+                    </ScrollArea> : <div className='min-h-[200px] flex items-center'>
+                        <span className='text-md font-semibold'>Loading...</span>
+                    </div>
                 }
             </section>
         </div>
