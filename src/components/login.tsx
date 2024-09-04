@@ -1,12 +1,15 @@
+'use client'
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 export default async function LoginComponent() {
+  const router = useRouter()
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+  const handleLogin =() => {
+    router.push('/api/auth/login')
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -20,28 +23,12 @@ export default async function LoginComponent() {
             <CardTitle className="font-semibold text-xl">Login</CardTitle>
             <CardDescription>Enter your credentials.</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Wca id</Label>
-              <Input id="email" type="email" placeholder="1234ABCD56" required />
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link href="#" className="text-sm font-medium text-primary hover:underline" prefetch={false}>
-                  Forgot password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-          </CardContent>
           <CardFooter>
-            <Button type="submit" className="w-full bg-green-400 hover:bg-green-500 rounded-none text-black">
-              Login
-            </Button>
+              <Button onClick={handleLogin} className="bg-green-400 hover:bg-green-500 rounded-none text-black w-full">
+                Login with WCA
+              </Button>
           </CardFooter>
         </Card>
-        <Link href="/register"><p className="text-sm text-center hover:underline hover:underline-offset-2 cursor-pointer">Don't have an account? Sign up</p></Link>
       </div>
     </div>
   )

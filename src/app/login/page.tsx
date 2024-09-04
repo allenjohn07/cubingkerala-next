@@ -6,12 +6,13 @@ const Login = () => {
   return (
     <>
       <Suspense
-      fallback={
-        <div className='flex items-center justify-center min-h-[50vh] w-full'>
-          <LoadingComponent />
-        </div>
-      }
-      ><LoginComponent /></Suspense>
+        fallback={
+          <div className='flex items-center justify-center min-h-[50vh] w-full'>
+            <LoadingComponent />
+          </div>
+        }
+      ><LoginComponent />
+      </Suspense>
     </>
   )
 }

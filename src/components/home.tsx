@@ -6,13 +6,30 @@ import CubingKeralaGetStarted from "./ck-getstarted"
 import CubingKeralaCubingLengends from "./ck-cubinglegends"
 import { CubingKeralaCalendars } from "./ck-calendar"
 import { CubingKeralaUnravel } from "./ck-unravel"
+import { useEffect, useState } from "react"
+import cookie from "cookie"
+import { UserInfo } from "@/types/types"
+
+
 
 export default function HomeComponent() {
+
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   const [ref1, isVisible1] = useOnScreen({ threshold: 0.1 });
   const [ref2, isVisible2] = useOnScreen({ threshold: 0.1 });
   const [ref3, isVisible3] = useOnScreen({ threshold: 0.1 });
   const [ref4, isVisible4] = useOnScreen({ threshold: 0.1 });
+
+
+  useEffect(() => {
+    const cookies = cookie.parse(document.cookie);
+    const userInfo = cookies.userInfo
+
+    if (userInfo) {
+      setUserInfo(JSON.parse(userInfo))
+    }
+  }, [])
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
@@ -32,7 +49,7 @@ export default function HomeComponent() {
             animate={{ opacity: isVisible2 ? 1 : 0, y: isVisible2 ? 0 : 20 }}
             transition={{ duration: 0.5 }}
           >
-            <CubingKeralaCalendars/>
+            <CubingKeralaCalendars />
           </motion.div>
         </section>
         <section ref={ref3}>
