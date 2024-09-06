@@ -1,15 +1,23 @@
 'use client'
 
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import LoadingComponent from "./loading"
 
 export default function LoginComponent() {
-  const router = useRouter()
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleLogin =() => {
-    router.push('/api/auth/login')
-  }
+  const handleLogin = () => {
+    setLoading(true);
+    router.push('/api/auth/login');
+  };
+
+  useEffect(() => {
+    return () => setLoading(false);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,10 +32,22 @@ export default function LoginComponent() {
             <CardDescription>Enter your credentials.</CardDescription>
           </CardHeader>
           <CardFooter>
-              <Button onClick={handleLogin} className="bg-green-400 gap-2 hover:bg-green-500 rounded-none text-black w-full">
-                <img src="/WCALogo.svg" className="h-5 w-5" alt="wca-logo" />
-                Login with WCA
-              </Button>
+            <Button
+              onClick={handleLogin}
+              className="bg-green-400 hover:bg-green-500 rounded-none text-black w-full"
+              disabled={loading}
+            >
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <LoadingComponent width={10}/>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <img src="/WCALogo.svg" className="h-5 w-5" alt="wca-logo" />
+                  <span>Login with WCA</span>
+                </div>
+              )}
+            </Button>
           </CardFooter>
         </Card>
       </div>

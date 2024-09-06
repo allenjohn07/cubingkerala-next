@@ -11,7 +11,7 @@ export function AlertComponent({ userInfo, show, handleClick }: { userInfo: User
     return (
         <>
             {
-                show ? <Alert className="rounded-none border-b-green-500 h-max">
+                show && userInfo != null ? <Alert className="rounded-none border-green-500 h-max">
                     <div className="absolute right-5"><img onClick={handleClick} className="cursor-pointer hover:bg-gray-200 hover:scale-105 transition-all" src="/closeIcon.svg" alt="close" /></div>
                     <AlertTitle>
                         Logged in as <span className="font-bold">{userInfo?.me.name}</span>

@@ -10,7 +10,7 @@ import { CubingKeralaTyping } from "./ck-typing";
 const CubingKeralaGetStarted = () => {
   return (
     <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-background">
-      <div className="container px-6 flex justify-center items-center py-10 md:py-24">
+      <div className="container px-6 flex justify-center items-center py-5 md:py-20">
         <div className="grid gap-10 sm:px-10 md:gap-16 md:grid-cols-1">
           <div className="space-y-2 text-start w-full">
             <div className="w-[300px] md:w-[500px] absolute hidden lg:block lg:top-32 lg:-right-10">
