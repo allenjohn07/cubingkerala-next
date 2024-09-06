@@ -17,8 +17,6 @@ const CubingKeralaNavbar = () => {
     }
   }, []);
 
-  console.log(userInfo);
-
   return (
     <header className="bg-background shadow-sm py-2">
       <div className="container space-y-3 md:space-y-0 md:flex items-center justify-between h-20 md:h-18 py-2 md:py-6 px-4 md:px-6">
@@ -61,6 +59,7 @@ const CubingKeralaNavbar = () => {
     });
 
     if (response.ok) {
+      window.localStorage.clear()
       window.location.reload()
     } else {
       console.error('Logout failed');

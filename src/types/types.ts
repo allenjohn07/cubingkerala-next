@@ -97,17 +97,19 @@ interface Country {
 }
 
 export interface UserInfo {
-  avatar: Avatar;
-  class: string;
-  country: Country;
-  country_iso2: string;
-  created_at: string;
-  delegate_status: string | null;
-  gender: string;
-  id: number;
-  name: string;
-  teams: any[];
-  updated_at: string;
-  url: string;
-  wca_id: string;
+  me: {
+    avatar: Avatar;
+    class: string;
+    country: Country;
+    country_iso2: string;
+    created_at: string;
+    delegate_status: string | null;
+    gender: string;
+    id: number;
+    name: string;
+    teams: any[];
+    updated_at: string;
+    url: string;
+    wca_id: string;
+  }
 }

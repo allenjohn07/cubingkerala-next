@@ -9,31 +9,48 @@ import { CubingKeralaUnravel } from "./ck-unravel"
 import { useEffect, useState } from "react"
 import cookie from "cookie"
 import { UserInfo } from "@/types/types"
-
-
+import { AlertComponent } from "./alert"
 
 export default function HomeComponent() {
-
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [isAlertShow, setIsAlertShow] = useState<boolean | null>(null);
 
   const [ref1, isVisible1] = useOnScreen({ threshold: 0.1 });
   const [ref2, isVisible2] = useOnScreen({ threshold: 0.1 });
   const [ref3, isVisible3] = useOnScreen({ threshold: 0.1 });
   const [ref4, isVisible4] = useOnScreen({ threshold: 0.1 });
 
-
   useEffect(() => {
-    const cookies = cookie.parse(document.cookie);
-    const userInfo = cookies.userInfo
+    if (typeof window !== 'undefined') {
+      // This code runs only on the client side
+      const alertVisibility = window.localStorage.getItem("alertVisiblity");
+      setIsAlertShow(alertVisibility === "true");
 
-    if (userInfo) {
-      setUserInfo(JSON.parse(userInfo))
+      const cookies = cookie.parse(document.cookie);
+      const userInfo = cookies.userInfo;
+
+      if (userInfo) {
+        setUserInfo(JSON.parse(userInfo));
+        if (alertVisibility === null) {
+          setIsAlertShow(true);
+          window.localStorage.setItem("alertVisiblity", "true");
+        }
+      }
     }
-  }, [])
+  }, []);
+
+  const handleClick = () => {
+    const newVisibility = !isAlertShow;
+    setIsAlertShow(newVisibility);
+    window.localStorage.setItem("alertVisiblity", newVisibility.toString());
+  };
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <main className="flex-1">
+        {isAlertShow && (
+          <AlertComponent show={isAlertShow} userInfo={userInfo} handleClick={handleClick} />
+        )}
         <section ref={ref1} className="w-full min-h-screen relative">
           <motion.div
             initial={{ opacity: 0, y: 0 }}
@@ -73,3 +90,4 @@ export default function HomeComponent() {
     </div>
   )
 }
+

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 
-export default async function LoginComponent() {
+export default function LoginComponent() {
   const router = useRouter()
 
   const handleLogin =() => {
@@ -13,7 +13,7 @@ export default async function LoginComponent() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto flex w-full max-w-md flex-col gap-6 px-6 py-6 md:py-8 md:px-8">
+      <div className="mx-auto flex w-full max-w-md flex-col gap-6 px-8 py-20 md:py-20 md:px-8">
         <div className="flex flex-col items-center gap-2">
           <CuboidIcon className="h-12 w-12 text-primary" />
           <h2 className="text-3xl font-bold tracking-tight text-foreground">Cubing Kerala</h2>
@@ -24,7 +24,8 @@ export default async function LoginComponent() {
             <CardDescription>Enter your credentials.</CardDescription>
           </CardHeader>
           <CardFooter>
-              <Button onClick={handleLogin} className="bg-green-400 hover:bg-green-500 rounded-none text-black w-full">
+              <Button onClick={handleLogin} className="bg-green-400 gap-2 hover:bg-green-500 rounded-none text-black w-full">
+                <img src="/WCALogo.svg" className="h-5 w-5" alt="wca-logo" />
                 Login with WCA
               </Button>
           </CardFooter>
