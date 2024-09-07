@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 import db from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function GET(req: NextRequest) {
     const code = req.nextUrl.searchParams.get('code');
@@ -29,14 +30,14 @@ export async function GET(req: NextRequest) {
 
         const userInfo = userInfoResponse.data;
 
-        const ExistingUser = await db.user.findUnique({
+        const ExistingUser = await db.users.findUnique({
             where: {
                 wcaid: userInfo.me.wca_id
             }
         })
 
         if (!ExistingUser) {
-            await db.user.create({
+            await db.users.create({
                 data: {
                     wcaid: userInfo.me.wca_id,
                     name: userInfo.me.name,
@@ -44,8 +45,7 @@ export async function GET(req: NextRequest) {
                     country: userInfo.me.country.name,
                     gender: userInfo.me.gender,
                     createdAt: new Date(),
-                    updatedAt: new Date(),
-                        
+                    updatedAt: new Date(),            
                 }
             })
         }
@@ -66,6 +66,7 @@ export async function GET(req: NextRequest) {
         });
 
         response.cookies.set('userInfo', JSON.stringify(userInfo))
+        revalidatePath('/')
         return response;
     } catch (error) {
         console.error(error);

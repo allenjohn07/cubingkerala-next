@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import CubingKeralaNavbar from "@/components/ck-navbar";
 import CubingKeralaFooter from "@/components/ck-footer";
+import {Toaster} from 'sonner'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className={`${inter.className} max-w-screen-xl mx-auto flex flex-col min-h-screen justify-between`}>
         <CubingKeralaNavbar />
         {children}
+        <Toaster richColors/>
         <CubingKeralaFooter />
       </body>
     </html>

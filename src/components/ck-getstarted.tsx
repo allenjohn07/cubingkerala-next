@@ -26,7 +26,7 @@ const CubingKeralaGetStarted = () => {
             <Link href="/login"><Button className="bg-green-400 text-black hover:bg-green-500 rounded-none">Get started</Button></Link>
           </div>
           {/* for smaller screens */}
-          <div className="w-[300px] block md:hidden z-50">
+          <div className=" flex items-center justify-center w-full md:hidden z-50">
             <LottieComponent path="/rubiks-cube.json" />
           </div>
         </div>

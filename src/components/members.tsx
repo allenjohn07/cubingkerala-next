@@ -1,17 +1,62 @@
+'use client'
+
 import SearchComponent from "@/components/search"
-import { Button } from "@/components/ui/button"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
+import { Button } from "./ui/button"
+import { useEffect, useState } from "react"
+import { UserInfo } from "@/types/types"
+import cookie from "cookie"
+import { toast } from "sonner"
 
-export default async function MembersComponent() {
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+export default function MembersComponent() {
+
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  useEffect(() => {
+    const cookies = cookie.parse(document.cookie);
+    const userInfoFromCookie = cookies.userInfo;
+    if (userInfoFromCookie) {
+      setUserInfo(JSON.parse(userInfoFromCookie));
+    }
+  }, []);
+
+  console.log(userInfo);
+
+
+  const handleJoinCK = async () => {
+    if (userInfo == null) {
+      toast.error("Please login to join Cubing Kerala");
+      return;
+    }
+
+    try {
+      const response = await fetch('/api/join-cubingkerala', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success(`${data.message}`);
+      } else {
+        const error = await response.json();
+        toast(`${error.message}`);
+      }
+    } catch (error) {
+      toast(`${error}`);
+    }
+  };
 
   return (
     <div className="w-full py-6 md:py-8 px-4 md:px-6">
       <h1 className="text-3xl font-bold text-center mb-5">Members</h1>
       <div className="flex items-center justify-center gap-3 md:justify-between mb-6">
         <SearchComponent />
-        <Button className="bg-green-400 hover:bg-green-500 rounded-none text-black" size="sm">Join Cubing Kerala</Button>
+        <Button onClick={handleJoinCK} className="bg-green-400 hover:bg-green-500 rounded-none text-black" size="sm">Join Cubing Kerala</Button>
       </div>
       <div className="overflow-auto rounded-none border h-[400px]">
         <Table className="w-full">

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import cookie from "cookie"
 import { UserInfo } from '@/types/types'
-import { Button } from './ui/button'
+import { Profile } from './profile'
 
 const CubingKeralaNavbar = () => {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
@@ -20,7 +20,7 @@ const CubingKeralaNavbar = () => {
   return (
     <header className="bg-background shadow-sm py-2">
       <div className="container space-y-3 md:space-y-0 md:flex items-center justify-between h-20 md:h-18 py-2 md:py-6 px-4 md:px-6">
-        <Link href="/" className="flex items-center justify-center gap-2" prefetch={false}>
+        <Link href="/" className="flex items-center justify-start gap-2" prefetch={false}>
           <CuboidIcon className="w-6 h-6" />
           <span className="text-lg font-semibold">Cubing Kerala</span>
         </Link>
@@ -44,7 +44,7 @@ const CubingKeralaNavbar = () => {
                 Login
               </Link>
             ) : (
-              <Button variant="destructive" className='rounded-none' size="sm" onClick={() => handleLogout()}>Logout</Button>
+              <Profile profileInfo={userInfo} handleLogout={handleLogout} />
             )
           }
         </nav>
@@ -55,12 +55,12 @@ const CubingKeralaNavbar = () => {
   async function handleLogout() {
     const response = await fetch('/api/auth/logout', {
       method: 'POST',
-      credentials: 'include', // Include cookies in the request
+      credentials: 'include',
     });
 
     if (response.ok) {
       window.localStorage.clear()
-      window.location.reload()
+      window.location.replace('/')
     } else {
       console.error('Logout failed');
     }
