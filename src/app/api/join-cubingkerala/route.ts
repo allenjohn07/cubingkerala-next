@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { UserInfo } from '@/types/types';
 import db from '@/lib/db';
+import { revalidatePath } from 'next/cache';
 
 export async function POST(request: Request) {
     try {
@@ -45,6 +46,8 @@ export async function POST(request: Request) {
                 updatedAt: new Date(),
             },
         });
+
+        revalidatePath('/');
 
         return NextResponse.json({ message: 'Request submitted successfully', request: newRequest });
     } catch (error) {

@@ -1,0 +1,130 @@
+'use client'
+
+import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react";
+
+
+interface Request {
+  wcaid: string;
+  name: string;
+  avatarUrl: string;
+  country: string | null;
+  gender: string | null;
+  role: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export default function RequestsComponent({ requests, members }: {
+  requests: Request[],
+  members: Request[]
+}) {
+
+  const [requestsData, setRequestsData] = useState<Request[]>([])
+  const [membersData, setMembersData] = useState<Request[]>([])
+
+  useEffect(() => {
+    setRequestsData(requests)
+    setMembersData(members)
+  }, [requests])
+
+  const handleApprove = (index: number) => {
+    const updatedRequest = { ...requestsData[index] };
+    const selectElement = document.getElementById(`role-${index}`) as HTMLSelectElement;
+    updatedRequest.role = selectElement.value;
+
+    console.log('Approved Request:', updatedRequest);
+  };
+
+  return (
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className="text-3xl font-bold mb-5">Requests</h1>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px] table-auto">
+          <thead>
+            <tr className="bg-gray-200 text-gray-700">
+              <th className="px-4 py-1 text-left">Name</th>
+              <th className="px-4 py-1 text-left">WCA ID</th>
+              <th className="px-4 py-1 text-left">Role</th>
+              <th className="px-4 py-1 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              requestsData.length > 0 ? requestsData?.map((request, index) => (
+                <tr key={index} className="border-b">
+                  <td className="px-2 py-2">{request.name}</td>
+                  <td className="px-2 py-2">{request.wcaid}</td>
+                  <td className="px-2 py-2">
+                    <select id={`role-${index}`} name="role" defaultValue={request.role || "member"}>
+                      <option value="member">Member</option>
+                      <option value="organiser">Organiser</option>
+                      <option value="co-founder">Co-Founder</option>
+                    </select>
+                  </td>
+                  <td className="px-2 py-2 text-right">
+                    <div className="flex items-end justify-end">
+                      <Button variant={"destructive"} size="sm" className="mr-2 rounded-none">
+                        Delete
+                      </Button>
+                      <Button
+                        className="bg-green-400 hover:bg-green-500 text-black rounded-none"
+                        size="sm"
+                        onClick={() => handleApprove(index)}
+                      >
+                        Approve
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              )) : <tr><td className="text-muted-foreground px-2 py-2" colSpan={4}>No requests...</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <h1 className="text-3xl font-bold mb-5 mt-10">Members</h1>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[500px] table-auto">
+          <thead>
+            <tr className="bg-gray-200 text-gray-700">
+              <th className="px-4 py-1 text-left">Name</th>
+              <th className="px-4 py-1 text-left">WCA ID</th>
+              <th className="px-4 py-1 text-left">Role</th>
+              <th className="px-4 py-1 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              membersData.length > 0 ? membersData?.map((member, index) => (
+                <tr key={index} className="border-b">
+                  <td className="px-2 py-2">{member.name}</td>
+                  <td className="px-2 py-2">{member.wcaid}</td>
+                  <td className="px-2 py-2">
+                    <select id={`role-${index}`} name="role" defaultValue={member.role || "member"}>
+                      <option value="member">Member</option>
+                      <option value="organiser">Organiser</option>
+                      <option value="co-founder">Co-Founder</option>
+                    </select>
+                  </td>
+                  <td className="px-2 py-2 text-right">
+                    <div className="flex items-end justify-end">
+                      <Button variant={"destructive"} size="sm" className="mr-2 rounded-none">
+                        Delete
+                      </Button>
+                      <Button
+                        className="bg-green-400 hover:bg-green-500 text-black rounded-none"
+                        size="sm"
+                      >
+                        Update
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              )) : <tr><td className="text-muted-foreground px-2 py-2" colSpan={4}>No members...</td></tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
