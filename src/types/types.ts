@@ -113,3 +113,16 @@ export interface UserInfo {
     wca_id: string;
   }
 }
+
+export interface RequestInfo {
+  avatarUrl: string;
+  country: string;
+  createdAt: Date;
+  gender: string;
+  name: string;
+  role: string;
+  updatedAt: Date;
+  wcaid: string;
+}
+
+

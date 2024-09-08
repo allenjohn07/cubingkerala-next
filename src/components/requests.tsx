@@ -1,7 +1,10 @@
 'use client'
 
-import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react";
+import DeletePopover from "./delete-popover";
+import ApprovePopover from "./approve-popover";
+import UpdatePopover from "./update-popover";
+import { toast } from "sonner";
 
 
 interface Request {
@@ -28,13 +31,34 @@ export default function RequestsComponent({ requests, members }: {
     setMembersData(members)
   }, [requests])
 
-  const handleApprove = (index: number) => {
+  const handleApprove = async (index: number) => {
     const updatedRequest = { ...requestsData[index] };
     const selectElement = document.getElementById(`role-${index}`) as HTMLSelectElement;
-    updatedRequest.role = selectElement.value;
-
-    console.log('Approved Request:', updatedRequest);
+    updatedRequest.role = selectElement.value;  
+      
+    try {
+      const response = await fetch('/api/approve-requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedRequest),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success(`${data.message}`);
+        window.location.reload();
+      } else {
+        const error = await response.json();
+        toast.error(`${error.message}`);
+        window.location.reload();
+      }
+    } catch (error) {
+      toast.error(`${error}`);
+      window.location.reload();
+    }
   };
+  
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -64,20 +88,12 @@ export default function RequestsComponent({ requests, members }: {
                   </td>
                   <td className="px-2 py-2 text-right">
                     <div className="flex items-end justify-end">
-                      <Button variant={"destructive"} size="sm" className="mr-2 rounded-none">
-                        Delete
-                      </Button>
-                      <Button
-                        className="bg-green-400 hover:bg-green-500 text-black rounded-none"
-                        size="sm"
-                        onClick={() => handleApprove(index)}
-                      >
-                        Approve
-                      </Button>
+                      <DeletePopover />
+                      <ApprovePopover handleApprove={handleApprove} index={index} />
                     </div>
                   </td>
                 </tr>
-              )) : <tr><td className="text-muted-foreground px-2 py-2" colSpan={4}>No requests...</td></tr>
+              )) : <tr><td className="text-muted-foreground px-2 py-2" colSpan={4}>No new requests...</td></tr>
             }
           </tbody>
         </table>
@@ -108,15 +124,8 @@ export default function RequestsComponent({ requests, members }: {
                   </td>
                   <td className="px-2 py-2 text-right">
                     <div className="flex items-end justify-end">
-                      <Button variant={"destructive"} size="sm" className="mr-2 rounded-none">
-                        Delete
-                      </Button>
-                      <Button
-                        className="bg-green-400 hover:bg-green-500 text-black rounded-none"
-                        size="sm"
-                      >
-                        Update
-                      </Button>
+                      <DeletePopover />
+                      <UpdatePopover handleApprove={handleApprove} index={index} />
                     </div>
                   </td>
                 </tr>

@@ -1,9 +1,17 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { UserInfo } from '@/types/types';
 import db from '@/lib/db';
 import { revalidatePath } from 'next/cache';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+
+    const cookies = request.cookies;
+    const user = cookies.get("userInfo");
+
+    if (!user) {
+        return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+    }
+
     try {
         const userInfo: UserInfo = await request.json();
 
