@@ -1,30 +1,60 @@
 'use client'
 
-import { RequestInfo } from '@/types/types'
+import { CompetitorData, RequestInfo } from '@/types/types'
 import React, { useEffect, useState } from 'react'
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
+import '@cubing/icons'
 
-const MemberInfoComponent = ({ member }: { member: RequestInfo }) => {
+const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, memberResult: CompetitorData }) => {
 
     const [currentMember, setCurrentMember] = useState<RequestInfo>(member)
+    const [currentMemberResult, setCurrentMemberResult] = useState<CompetitorData>(memberResult)
 
     useEffect(() => {
         if (member) {
             setCurrentMember(member)
         }
+        if (memberResult) {
+            setCurrentMemberResult(memberResult)
+        }
     }, [member])
 
-    console.log(currentMember);
+    const personalRecordsArray = Object.entries(currentMemberResult.personal_records).map(([event, ranking]) => ({
+        event,
+        ranking
+    }));
 
+    console.log(personalRecordsArray);
+
+
+    function convertMillisecondsToTime(milliseconds: number) {
+        if (milliseconds < 0) {
+            return 'DNF';
+        }
+
+        let totalSeconds = milliseconds / 100;
+
+        if (totalSeconds < 60) {
+            return totalSeconds.toFixed(2);
+        } else {
+            let minutes = Math.floor(totalSeconds / 60);
+            let seconds = (totalSeconds % 60).toFixed(2);
+            if (Number(seconds) < 10) {
+                return `${minutes}.0${seconds}`;
+            }
+            return `${minutes}.${seconds}`;
+        }
+    }
+        
 
     return (
         <div className="min-h-screen bg-white text-black">
             <main className="flex flex-col items-center p-4">
                 <div className="text-center">
                     <h2 className="text-3xl font-bold">{currentMember.name}</h2>
-                    <Badge variant="secondary">Cubing Kerala {(currentMember.role).split('')[0].toUpperCase()  + (currentMember.role).slice(1)} </Badge>  
+                    <Badge variant="secondary">Cubing Kerala {(currentMember.role).split('')[0].toUpperCase() + (currentMember.role).slice(1)} </Badge>
                 </div>
                 <div className="w-full max-w-[200px] h-[200px] my-4">
                     <Avatar className="w-full h-full rounded-md">
@@ -35,38 +65,67 @@ const MemberInfoComponent = ({ member }: { member: RequestInfo }) => {
                 <div className="flex justify-center space-x-8 my-4">
                     <div className="text-center">
                         <p className="text-xs text-muted-foreground">COUNTRY</p>
-                        <p>{(currentMember.country).toUpperCase()}</p>
+                        <p className='text-sm font-semibold'>{(currentMember.country).toUpperCase()}</p>
                     </div>
                     <div className="text-center">
                         <p className="text-xs text-muted-foreground">WCA ID</p>
-                        <p>{currentMember.wcaid}</p>
+                        <p className='text-sm font-semibold'>{currentMember.wcaid}</p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-xs text-muted-foreground">COMPETITIONS</p>
+                        <p className='text-sm font-semibold'>{currentMemberResult.competition_count}</p>
                     </div>
                 </div>
-                <div className="w-full max-w-4xl mt-10">
+                <div className="flex justify-center space-x-8 my-2">
+                    <div className="text-center">
+                        <p className="text-xs text-muted-foreground">MEDALS</p>
+                        <div className='flex justify-center space-x-2'>
+                            <div className='flex justify-center items-center'>
+                                <p className='text-sm font-semibold'>{currentMemberResult.medals.gold}</p>
+                                <img src="/gold.png" alt="gold" className='w-6 h-6' />
+                            </div>
+                            <div className='flex items-center justify-center'>
+                                <p className='text-sm font-semibold'>{currentMemberResult.medals.silver}</p>
+                                <img src="/silver.png" alt="silver" className='w-6 h-6' />
+                            </div>
+                            <div className='flex items-center justify-center'><p className='text-sm font-semibold'>{currentMemberResult.medals.bronze}</p>
+                                <img src="/bronze.png" alt="bronze" className='w-6 h-6' /></div>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full max-w-4xl mt-5">
                     <Table className='border'>
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Event</TableHead>
                                 <TableHead>NR</TableHead>
+                                <TableHead>CR</TableHead>
                                 <TableHead>WR</TableHead>
                                 <TableHead>Best</TableHead>
                                 <TableHead>Average</TableHead>
                                 <TableHead>WR</TableHead>
+                                <TableHead>CR</TableHead>
                                 <TableHead>NR</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            <TableRow>
-                                <TableCell>
-                                    <CuboidIcon className="w-6 h-6" />
-                                </TableCell>
-                                <TableCell>235</TableCell>
-                                <TableCell>6087</TableCell>
-                                <TableCell>2.00</TableCell>
-                                <TableCell>4.60</TableCell>
-                                <TableCell>17575</TableCell>
-                                <TableCell>768</TableCell>
-                            </TableRow>
+                            {
+                                personalRecordsArray.map((event, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>
+                                        <span className={`cubing-icon event-${event.event}`}></span>
+                                        </TableCell>
+                                        <TableCell>{event.ranking.single.country_rank}</TableCell>
+                                        <TableCell>{event.ranking.single.continent_rank}</TableCell>
+                                        <TableCell>{event.ranking.single.world_rank}</TableCell>
+                                        <TableCell className='font-semibold'>{convertMillisecondsToTime(event.ranking.single.best)}</TableCell>
+                                        <TableCell className='font-semibold pl-5'>{convertMillisecondsToTime(event.ranking.average.best)}</TableCell>
+                                        <TableCell>{event.ranking.average.world_rank}</TableCell>
+                                        <TableCell>{event.ranking.average.continent_rank}</TableCell>
+                                        <TableCell>{event.ranking.average.country_rank}</TableCell>
+                                    </TableRow>
+                                ))
+                            }
                         </TableBody>
                     </Table>
                 </div>
