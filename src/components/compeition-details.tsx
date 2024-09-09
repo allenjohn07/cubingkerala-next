@@ -1,11 +1,12 @@
-"use client"
+"use client";
 
-import { CompetitionDetails } from '@/types/types'
+import { CompetitionDetails } from '@/types/types';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip';
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import "@cubing/icons";
 import dynamic from "next/dynamic";
 import { LatLngTuple } from "leaflet";
+import Link from 'next/link';
 
 const LeafletMap = dynamic(() => import("@/components/map"), {
     ssr: false,
@@ -13,9 +14,16 @@ const LeafletMap = dynamic(() => import("@/components/map"), {
 });
 
 const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetails }) => {
-    console.log(compInfo);
+    const [currentCompetition, setCurrentCompetition] = useState<CompetitionDetails>(compInfo);
 
-    const coordinates: LatLngTuple = [compInfo.venue.coordinates.latitude, compInfo.venue.coordinates.longitude];
+    useEffect(() => {
+        setCurrentCompetition(compInfo);
+    }, [compInfo]);
+
+    const coordinates: LatLngTuple = [
+        compInfo.venue.coordinates.latitude,
+        compInfo.venue.coordinates.longitude
+    ];
 
     return (
         <div className="w-full mx-auto py-6 md:py-8 px-4 md:px-5">
@@ -23,9 +31,9 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                     <div className='grid gap-6'>
                         <div>
-                            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{compInfo.name}</h1>
+                            <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{currentCompetition.name}</h1>
                             <p className="mt-4 text-muted-foreground">
-                                {new Date(compInfo?.date?.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(compInfo?.date?.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} | {compInfo.venue.name}, {compInfo.city}
+                                {`${new Date(currentCompetition.date.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(currentCompetition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} | ${currentCompetition.venue.name}, ${currentCompetition.city}`}
                             </p>
                         </div>
                         <div>
@@ -35,7 +43,7 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                                     <div>
                                         <p className="font-medium">Location</p>
                                         <p className="text-muted-foreground">
-                                            {compInfo.venue.name}, {compInfo.venue.address}
+                                            {`${currentCompetition.venue.name}, ${currentCompetition.venue.address}`}
                                         </p>
                                     </div>
                                 </div>
@@ -43,20 +51,18 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                                     <div>
                                         <p className="font-medium">Events</p>
                                         <div className='py-2'>
-                                            {
-                                                compInfo?.events.map((event, index) => (
-                                                    <TooltipProvider key={index}>
-                                                        <Tooltip>
-                                                            <TooltipTrigger>
-                                                                <span className={`cubing-icon event-${event} pr-3`}></span>
-                                                            </TooltipTrigger>
-                                                            <TooltipContent className='bg-green-400 rounded-md text-xs p-1 text-black'>
-                                                                <p>{event}</p>
-                                                            </TooltipContent>
-                                                        </Tooltip>
-                                                    </TooltipProvider>
-                                                ))
-                                            }
+                                            {currentCompetition.events.map((event) => (
+                                                <TooltipProvider key={event}>
+                                                    <Tooltip>
+                                                        <TooltipTrigger>
+                                                            <span className={`cubing-icon event-${event} pr-3`}></span>
+                                                        </TooltipTrigger>
+                                                        <TooltipContent className='bg-green-400 rounded-md text-xs p-1 text-black'>
+                                                            <p>{event}</p>
+                                                        </TooltipContent>
+                                                    </Tooltip>
+                                                </TooltipProvider>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -64,37 +70,40 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                         </div>
                     </div>
                     <div>
-                        <LeafletMap coordinates={coordinates} address={compInfo.venue.address} />
+                        <LeafletMap coordinates={coordinates} address={currentCompetition.venue.address} />
                     </div>
                 </div>
                 <div className="grid gap-6">
                     <div>
                         <h2 className="text-2xl font-bold">Important Information</h2>
-                        <div className="mt-4 grid gap-4">
-                            <div className="flex items-center gap-2">
-                                <div>
-                                    <p className="text-muted-foreground">{compInfo.information}</p>
-                                </div>
-                            </div>
+                        <div className="mt-4">
+                            <p className="text-muted-foreground">{currentCompetition.information}</p>
                         </div>
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold">Organizers</h2>
                         <div className="mt-4 grid gap-4">
-                            {
-                                compInfo.organisers.map((organiser) => <div className="flex items-center gap-2">
-                                    <div key={organiser.email}>
+                            {currentCompetition.organisers.map((organiser) => (
+                                <div key={organiser.email} className="flex items-center gap-2">
+                                    <div>
                                         <p className="font-medium">{organiser.name}</p>
                                         <p className="text-muted-foreground">{organiser.email}</p>
                                     </div>
-                                </div>)
-                            }
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>
+                {
+                    new Date(compInfo.date.till) < new Date() ? <div className='w-full text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
+                    <Link href={`https://www.worldcubeassociation.org/competitions/${compInfo.id}`}>Check out the competition results!</Link>
+                </div> : <div className='w-full text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
+                    <Link href={`https://www.worldcubeassociation.org/competitions/${compInfo.id}`}>Find out more about this competition!</Link>
+                </div>
+                }
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default CompetitionDetailsComponent;

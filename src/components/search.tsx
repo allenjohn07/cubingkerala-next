@@ -1,12 +1,19 @@
+'use client'
+
 import { Input } from "@/components/ui/input"
 
-export default function SearchComponent() {
+export default function SearchComponent({ handleSearch }: { handleSearch: (searchTerm: string) => void }) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleSearch(e.target.value);
+  };
+
   return (
     <div className="w-full max-w-md">
       <div className="relative">
         <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
         <Input
           type="search"
+          onChange={handleInputChange}
           placeholder="Search Member"
           className="w-full pl-10 pr-4 py-2 rounded-none border border-input bg-background text-foreground shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
         />

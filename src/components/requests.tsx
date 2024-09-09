@@ -47,15 +47,15 @@ export default function RequestsComponent({ requests, members }: {
       if (response.status === 200) {
         const data = await response.json();
         toast.success(`${data.message}`);
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         const error = await response.json();
         toast.error(`${error.message}`);
-        window.location.reload();
       }
     } catch (error) {
       toast.error(`${error}`);
-      window.location.reload();
     }
   };
   

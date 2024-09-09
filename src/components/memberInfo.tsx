@@ -6,6 +6,12 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import '@cubing/icons'
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, memberResult: CompetitorData }) => {
 
@@ -47,7 +53,30 @@ const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, me
             return `${minutes}.${seconds}`;
         }
     }
-        
+
+
+    function convertMbldToMinutes(number: number): string {
+        const numStr = `0${number.toString()}`;
+
+        const DD = parseInt(numStr.substring(1, 3), 10);
+        const TTTTT = parseInt(numStr.substring(3, 8), 10);
+        const MM = parseInt(numStr.substring(8, 10), 10);
+
+        const difference = 99 - DD;
+        const missed = MM;
+        const solved = difference + missed;
+        const attempted = solved + missed;
+
+        const totalSeconds = TTTTT;
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        const timeFormatted = `${String(minutes).padStart(2, '0')}.${String(seconds).padStart(2, '0')}`;
+
+        const finalOutput = `${solved}/${attempted} ${timeFormatted}`;
+        return finalOutput;
+    }
+
 
     return (
         <div className="min-h-screen bg-white text-black">
@@ -113,13 +142,29 @@ const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, me
                                 personalRecordsArray.map((event, index) => (
                                     <TableRow key={index}>
                                         <TableCell>
-                                        <span className={`cubing-icon event-${event.event}`}></span>
+                                            <TooltipProvider>
+                                                <Tooltip>
+                                                    <TooltipTrigger>
+                                                        <span className={`cubing-icon event-${event.event}`}></span>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent className='bg-green-400 text-black'>
+                                                        <p>{event.event}</p>
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            </TooltipProvider>
+
                                         </TableCell>
                                         <TableCell>{event.ranking.single.country_rank}</TableCell>
                                         <TableCell>{event.ranking.single.continent_rank}</TableCell>
                                         <TableCell>{event.ranking.single.world_rank}</TableCell>
-                                        <TableCell className='font-semibold'>{convertMillisecondsToTime(event.ranking.single.best)}</TableCell>
-                                        <TableCell className='font-semibold pl-5'>{convertMillisecondsToTime(event.ranking.average.best)}</TableCell>
+                                        <TableCell className='font-semibold'>{
+                                            event.event === '333mbf' ? convertMbldToMinutes(event.ranking.single.best) :
+                                                convertMillisecondsToTime(event.ranking.single.best)
+                                        }</TableCell>
+                                        <TableCell className='font-semibold pl-5'>{
+                                            event.event === '333mbf' ? null :
+                                                convertMillisecondsToTime(event.ranking.average.best)
+                                        }</TableCell>
                                         <TableCell>{event.ranking.average.world_rank}</TableCell>
                                         <TableCell>{event.ranking.average.continent_rank}</TableCell>
                                         <TableCell>{event.ranking.average.country_rank}</TableCell>

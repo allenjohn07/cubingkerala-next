@@ -36,8 +36,8 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                         <div className="flex space-x-4 py-5">
                             {
                                 upcomingCompetitions.map((competition, index) =>
-                                    <Link href={`/competitions/${competition.id}`}>
-                                        <Card key={index} className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
+                                    <Link key={index} href={`/competitions/${competition.id}`}>
+                                        <Card className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
                                             <CardContent className="p-6 h-[150px]">
                                                 <h3 className="text-xl font-bold mb-2">{competition.name}</h3>
                                                 <p className="text-muted-foreground text-wrap">
@@ -90,8 +90,8 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                         <div className="flex space-x-4 py-5">
                             {
                                 pastCompetitions.map((competition, index) =>
-                                    <Link href={`/competitions/${competition.id}`}>
-                                        <Card key={index} className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
+                                    <Link key={index} href={`/competitions/${competition.id}`}>
+                                        <Card className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
                                             <CardContent className="p-6 h-[150px]">
                                                 <h3 className="text-xl font-bold mb-2">{competition.name}</h3>
                                                 <p className="text-muted-foreground text-wrap">
