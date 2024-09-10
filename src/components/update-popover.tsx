@@ -9,7 +9,7 @@ import {
 import { Button } from './ui/button'
 
 
-const UpdatePopover = ({handleApprove, index}: {handleApprove: (index: number) => void, index: number}) => {
+const UpdatePopover = ({handleUpdate, index}: {handleUpdate: (index: number) => void, index: number}) => {
     return (
         <Popover>
             <PopoverTrigger>
@@ -20,9 +20,9 @@ const UpdatePopover = ({handleApprove, index}: {handleApprove: (index: number) =
                     Update
                 </Button>
             </PopoverTrigger>
-            <PopoverContent>Are you sure you want to approve this request?
+            <PopoverContent>Are you sure you want to update this member?
                     <Button
-                    onClick={() => handleApprove(index)}
+                    onClick={() => handleUpdate(index)}
                     size="sm" className="mt-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-none block">
                     Update
                 </Button>

@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import DeletePopover from "./delete-popover";
+import DeletePopover from "./delete-member-popover";
 import ApprovePopover from "./approve-popover";
 import UpdatePopover from "./update-popover";
 import { toast } from "sonner";
+import DeleteMemberPopover from "./delete-member-popover";
+import DeleteRequestPopover from "./delete-request-popover";
 
 
 interface Request {
@@ -34,8 +36,8 @@ export default function RequestsComponent({ requests, members }: {
   const handleApprove = async (index: number) => {
     const updatedRequest = { ...requestsData[index] };
     const selectElement = document.getElementById(`role-${index}`) as HTMLSelectElement;
-    updatedRequest.role = selectElement.value;  
-      
+    updatedRequest.role = selectElement.value;
+
     try {
       const response = await fetch('/api/approve-requests', {
         method: 'POST',
@@ -49,7 +51,7 @@ export default function RequestsComponent({ requests, members }: {
         toast.success(`${data.message}`);
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 2000);
       } else {
         const error = await response.json();
         toast.error(`${error.message}`);
@@ -58,7 +60,93 @@ export default function RequestsComponent({ requests, members }: {
       toast.error(`${error}`);
     }
   };
-  
+
+
+  const handleUpdate = async (index: number) => {
+    const updatedRequest = { ...membersData[index] };
+    const selectElement = document.getElementById(`role-${index}`) as HTMLSelectElement;
+    updatedRequest.role = selectElement.value;
+
+    console.log(updatedRequest);
+    
+
+    try {
+      const response = await fetch('/api/update-members', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedRequest),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success(`${data.message}`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        const error = await response.json();
+        toast.error(`${error.message}`);
+      }
+    } catch (error) {
+      toast.error(`${error}`);
+    }
+  }
+
+
+
+  const handleMemberDelete = async (index: number) => {
+    
+    try {
+      const response = await fetch('/api/delete-member', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ wcaid: membersData[index].wcaid }),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success(`${data.message}`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        const error = await response.json();
+        toast.error(`${error.message}`);
+      }
+    } catch (error) {
+      toast.error(`${error}`);
+    }
+  }
+
+
+  const handleRequestDelete = async (index: number) => {
+    try {
+      const response = await fetch('/api/delete-request', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ wcaid: requestsData[index].wcaid }),
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        toast.success(`${data.message}`);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        const error = await response.json();
+        toast.error(`${error.message}`);
+      }
+    } catch (error) {
+      toast.error(`${error}`);
+    }
+
+  }
+
+
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -88,7 +176,7 @@ export default function RequestsComponent({ requests, members }: {
                   </td>
                   <td className="px-2 py-2 text-right">
                     <div className="flex items-end justify-end">
-                      <DeletePopover />
+                      <DeleteRequestPopover handleRequestDelete={handleRequestDelete} index={index} />
                       <ApprovePopover handleApprove={handleApprove} index={index} />
                     </div>
                   </td>
@@ -124,8 +212,8 @@ export default function RequestsComponent({ requests, members }: {
                   </td>
                   <td className="px-2 py-2 text-right">
                     <div className="flex items-end justify-end">
-                      <DeletePopover />
-                      <UpdatePopover handleApprove={handleApprove} index={index} />
+                      <DeleteMemberPopover handleMemberDelete={handleMemberDelete} index={index} />
+                      <UpdatePopover handleUpdate={handleUpdate} index={index} />
                     </div>
                   </td>
                 </tr>

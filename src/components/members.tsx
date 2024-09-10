@@ -69,7 +69,7 @@ export default function MembersComponent({ membersfromdb }: { membersfromdb: Req
         toast.success(`${data.message}`);
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 2000);
       } else {
         const error = await response.json();
         toast(`${error.message}`);

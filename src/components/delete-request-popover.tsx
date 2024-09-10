@@ -9,7 +9,7 @@ import {
 import { Button } from './ui/button'
 
 
-const DeletePopover = () => {
+const DeleteRequestPopover = ({ handleRequestDelete, index }: { handleRequestDelete: (index: number) => void, index: number }) => {
     return (
         <Popover>
             <PopoverTrigger>
@@ -17,8 +17,8 @@ const DeletePopover = () => {
                     Delete
                 </Button>
             </PopoverTrigger>
-            <PopoverContent>Are you sure you want to delete this request?
-                <Button variant={"destructive"} size="sm" className="mt-2 rounded-none block">
+            <PopoverContent>Are you sure you want to delete this member?
+                <Button onClick={() => handleRequestDelete(index)} variant={"destructive"} size="sm" className="mt-2 rounded-none block">
                     Delete
                 </Button>
             </PopoverContent>
@@ -26,4 +26,4 @@ const DeletePopover = () => {
     )
 }
 
-export default DeletePopover
+export default DeleteRequestPopover
