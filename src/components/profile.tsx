@@ -16,13 +16,13 @@ export function Profile({ profileInfo, handleLogout }: {
 }) {
 
     return (
-        <Menubar className="bg-none shadow-none border-none">
+        <Menubar className="bg-black shadow-none border-none">
             <MenubarMenu>
                 <MenubarTrigger className="p-0 cursor-pointer hover:underline hover:underline-offset-4 rounded-none text-red-500">Logout</MenubarTrigger>
-                <MenubarContent>
+                <MenubarContent className="bg-black border-none text-stone-200">
                     <MenubarItem disabled>{profileInfo?.me.name}</MenubarItem>
                     {
-                        profileInfo?.me.wca_id == "2017JOHN14" ? <Link href={"/requests"}><MenubarItem className="hover:bg-gray-100 cursor-pointer">Requsets</MenubarItem></Link> : null
+                        profileInfo?.me.wca_id == "2017JOHN14" ? <Link href={"/requests"}><MenubarItem className="hover:bg-neutral-900 cursor-pointer">Requsets</MenubarItem></Link> : null
                     }
                     <MenubarItem onClick={handleLogout} className="hover-bg-red-500/10 hover:text-red-500 hover:bg-red-500/10 rounded-none cursor-pointer">Logout</MenubarItem>
                 </MenubarContent>

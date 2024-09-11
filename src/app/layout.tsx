@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} max-w-screen-xl mx-auto flex flex-col min-h-screen justify-between`}>
+      <body className={`${inter.className} max-w-screen-xl bg-black mx-auto flex flex-col min-h-screen justify-between`}>
         <CubingKeralaNavbar />
         {children}
         <Toaster richColors/>

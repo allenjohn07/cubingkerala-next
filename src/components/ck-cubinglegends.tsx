@@ -8,7 +8,7 @@ import DotPattern from "./magicui/dot-pattern";
 
 const CubingKeralaCubingLengends = () => {
     return (
-        <div className="relative flex h-full w-full py-12 md:py-24 lg:py-32 items-center justify-center overflow-hidden bg-background">
+        <div className="relative flex h-full w-full py-12 md:py-24 lg:py-32 items-center justify-center overflow-hidden bg-black text-stone-200">
             <div className="container px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <div className="space-y-2">
@@ -16,12 +16,12 @@ const CubingKeralaCubingLengends = () => {
                         <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                             Cubing Legends of Kerala
                         </h2>
-                        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                        <p className="max-w-[900px] text-stone-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                             Meet the top-ranked Rubik's Cube solvers in Kerala, who have dedicated their time and effort to
                             mastering the art of cubing.
                         </p>
                     </div>
-                    <Link href="/rankings"><Button className="bg-green-400 text-black hover:bg-green-500 rounded-none">Rankings</Button></Link>
+                    <Link prefetch={true} href="/rankings"><Button className="bg-green-400 text-black hover:bg-green-500 rounded-none">Rankings</Button></Link>
                 </div>
             </div>
             <DotPattern

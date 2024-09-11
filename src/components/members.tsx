@@ -80,7 +80,7 @@ export default function MembersComponent({ membersfromdb }: { membersfromdb: Req
   };
 
   return (
-    <div className="w-full py-6 md:py-8 px-4 md:px-6">
+    <div className="w-full py-6 md:py-8 px-4 md:px-6 text-stone-200">
       <h1 className="text-3xl font-bold text-center mb-5">Members</h1>
       <div className="flex items-center justify-center gap-3 md:justify-between mb-6">
         <SearchComponent handleSearch={handleSearch} />
@@ -88,16 +88,16 @@ export default function MembersComponent({ membersfromdb }: { membersfromdb: Req
           Join Cubing Kerala
         </Button>
       </div>
-      <div className="overflow-auto rounded-none border h-[400px]">
+      <div className="overflow-auto rounded-none border-none h-[400px]">
         <Table className="w-full">
           <TableHeader>
-            <TableRow>
-              <TableHead>#</TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>WCA ID</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead className="hidden md:table-cell">Competitions</TableHead>
-              <TableHead className="hidden md:table-cell">Medals</TableHead>
+            <TableRow className="hover:bg-neutral-900 border-none">
+              <TableHead className="text-neutral-500">#</TableHead>
+              <TableHead className="text-neutral-500">Name</TableHead>
+              <TableHead className="text-neutral-500">WCA ID</TableHead>
+              <TableHead className="text-neutral-500">Role</TableHead>
+              <TableHead className="hidden md:table-cell text-neutral-500">Competitions</TableHead>
+              <TableHead className="hidden md:table-cell text-neutral-500">Medals</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -105,17 +105,17 @@ export default function MembersComponent({ membersfromdb }: { membersfromdb: Req
               filteredMembersList.map((member, index) => {
                 const memberDetails = membersDetails.find((details) => details.person.wca_id === member.wcaid);
                 return (
-                  <TableRow className="border-b border-b-black" key={index}>
+                  <TableRow className="border-none hover:bg-neutral-900" key={index}>
                     <TableCell className="cursor-default">{index + 1}</TableCell>
                     <TableCell className="text-nowrap">
-                      <Link href={`/members/${member.wcaid}`}>
+                      <Link prefetch={true} href={`/members/${member.wcaid}`}>
                         <span className="hover:underline hover:underline-offset-2 cursor-pointer hover:text-blue-500">
                           {member.name}
                         </span>
                       </Link>
                     </TableCell>
                     <TableCell>
-                      <Link href={`/members/${member.wcaid}`}>
+                      <Link prefetch={true} href={`/members/${member.wcaid}`}>
                         <span className="hover:underline hover:underline-offset-2 cursor-pointer hover:text-blue-500">
                           {member.wcaid}
                         </span>
@@ -135,7 +135,7 @@ export default function MembersComponent({ membersfromdb }: { membersfromdb: Req
               })
             ) : (
               <TableRow>
-                <TableCell className="text-muted-foreground px-2 py-2" colSpan={6}>
+                <TableCell className="text-stone-600 px-4 hover:bg-neutral-900 py-4" colSpan={6}>
                   Loading...
                 </TableCell>
               </TableRow>

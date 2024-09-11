@@ -149,12 +149,12 @@ export default function RequestsComponent({ requests, members }: {
 
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-black text-stone-200">
       <h1 className="text-3xl font-bold mb-5">Requests</h1>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[500px] table-auto">
           <thead>
-            <tr className="bg-gray-200 text-gray-700">
+            <tr className="border-none">
               <th className="px-4 py-1 text-left">Name</th>
               <th className="px-4 py-1 text-left">WCA ID</th>
               <th className="px-4 py-1 text-left">Role</th>
@@ -168,7 +168,7 @@ export default function RequestsComponent({ requests, members }: {
                   <td className="px-2 py-2">{request.name}</td>
                   <td className="px-2 py-2">{request.wcaid}</td>
                   <td className="px-2 py-2">
-                    <select id={`role-${index}`} name="role" defaultValue={request.role || "member"}>
+                    <select className="bg-black text-stone-200 rounded-none" id={`role-${index}`} name="role" defaultValue={request.role || "member"}>
                       <option value="member">Member</option>
                       <option value="organiser">Organiser</option>
                       <option value="co-founder">Co-Founder</option>
@@ -190,7 +190,7 @@ export default function RequestsComponent({ requests, members }: {
       <div className="overflow-x-auto">
         <table className="w-full min-w-[500px] table-auto">
           <thead>
-            <tr className="bg-gray-200 text-gray-700">
+            <tr className="border-none">
               <th className="px-4 py-1 text-left">Name</th>
               <th className="px-4 py-1 text-left">WCA ID</th>
               <th className="px-4 py-1 text-left">Role</th>
@@ -200,11 +200,11 @@ export default function RequestsComponent({ requests, members }: {
           <tbody>
             {
               membersData.length > 0 ? membersData?.map((member, index) => (
-                <tr key={index} className="border-b">
+                <tr key={index}>
                   <td className="px-2 py-2">{member.name}</td>
                   <td className="px-2 py-2">{member.wcaid}</td>
                   <td className="px-2 py-2">
-                    <select id={`role-${index}`} name="role" defaultValue={member.role || "member"}>
+                    <select className="bg-black text-stone-200 rounded-none" id={`role-${index}`} name="role" defaultValue={member.role || "member"}>
                       <option value="member">Member</option>
                       <option value="organiser">Organiser</option>
                       <option value="co-founder">Co-Founder</option>

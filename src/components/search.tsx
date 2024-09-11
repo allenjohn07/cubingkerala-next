@@ -10,12 +10,12 @@ export default function SearchComponent({ handleSearch }: { handleSearch: (searc
   return (
     <div className="w-full max-w-md">
       <div className="relative">
-        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+        <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-stone-600" />
         <Input
           type="search"
           onChange={handleInputChange}
           placeholder="Search Member"
-          className="w-full pl-10 pr-4 py-2 rounded-none border border-input bg-background text-foreground shadow-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+          className="w-full pl-10 pr-4 py-2 rounded-none border-none bg-black text-stone-200 shadow-sm focus:outline-none focus:border-stone-800 focus:ring-1 focus:ring-stone-800 placeholder:text-stone-600"
         />
       </div>
     </div>

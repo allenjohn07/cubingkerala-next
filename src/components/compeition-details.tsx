@@ -26,13 +26,13 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
     ];
 
     return (
-        <div className="w-full mx-auto py-6 md:py-8 px-4 md:px-5">
+        <div className="w-full mx-auto text-stone-200 py-6 md:py-8 px-4 md:px-5">
             <div className="grid gap-6">
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                     <div className='grid gap-6'>
                         <div>
                             <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{currentCompetition.name}</h1>
-                            <p className="mt-4 text-muted-foreground">
+                            <p className="mt-4 text-stone-400">
                                 {`${new Date(currentCompetition.date.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(currentCompetition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })} | ${currentCompetition.venue.name}, ${currentCompetition.city}`}
                             </p>
                         </div>
@@ -42,7 +42,7 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                                 <div className="flex items-center gap-2">
                                     <div>
                                         <p className="font-medium">Location</p>
-                                        <p className="text-muted-foreground">
+                                        <p className="text-stone-400">
                                             {`${currentCompetition.venue.name}, ${currentCompetition.venue.address}`}
                                         </p>
                                     </div>
@@ -69,15 +69,15 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <>
                         <LeafletMap coordinates={coordinates} address={currentCompetition.venue.address} />
-                    </div>
+                    </>
                 </div>
                 <div className="grid gap-6">
                     <div>
                         <h2 className="text-2xl font-bold">Important Information</h2>
                         <div className="mt-4">
-                            <p className="text-muted-foreground">{currentCompetition.information}</p>
+                            <p className="text-stone-400">{currentCompetition.information}</p>
                         </div>
                     </div>
                     <div>
@@ -87,7 +87,7 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                                 <div key={organiser.email} className="flex items-center gap-2">
                                     <div>
                                         <p className="font-medium">{organiser.name}</p>
-                                        <p className="text-muted-foreground">{organiser.email}</p>
+                                        <p className="text-stone-400">{organiser.email}</p>
                                     </div>
                                 </div>
                             ))}
@@ -95,9 +95,9 @@ const CompetitionDetailsComponent = ({ compInfo }: { compInfo: CompetitionDetail
                     </div>
                 </div>
                 {
-                    new Date(compInfo.date.till) < new Date() ? <div className='w-full text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
+                    new Date(compInfo.date.till) < new Date() ? <div className='w-full my-5 text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
                     <Link href={`https://www.worldcubeassociation.org/competitions/${compInfo.id}`}>Check out the competition results!</Link>
-                </div> : <div className='w-full text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
+                </div> : <div className='w-full my-5 text-center text-blue-500 hover:text-blue-600 hover:underline hover:underline-offset-2 cursor-pointer'>
                     <Link href={`https://www.worldcubeassociation.org/competitions/${compInfo.id}`}>Find out more about this competition!</Link>
                 </div>
                 }

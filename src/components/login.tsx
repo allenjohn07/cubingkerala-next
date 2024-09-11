@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import LoadingComponent from "./loading"
 
+
 export default function LoginComponent() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -20,21 +21,17 @@ export default function LoginComponent() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mx-auto flex w-full max-w-md flex-col gap-6 px-8 py-20 md:py-20 md:px-8">
-        <div className="flex flex-col items-center gap-2">
-          <CuboidIcon className="h-12 w-12 text-primary" />
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">Cubing Kerala</h2>
-        </div>
-        <Card>
+    <div className="min-h-screen bg-black text-stone-200 relative">
+      <div className="mx-auto flex w-full max-w-md flex-col gap-6 px-8 py-[100px] md:py-[150px] md:px-8">
+        <Card className="border-none rounded-none bg-black text-stone-200">
           <CardHeader className="text-center">
-            <CardTitle className="font-semibold text-xl">Login</CardTitle>
-            <CardDescription>Enter your credentials.</CardDescription>
+            <CardTitle className="text-2xl md:text-3xl font-bold tracking-tight">Cubing Kerala Login</CardTitle>
+            <CardDescription className="text-neutral-500">Login with World Cube Association.</CardDescription>
           </CardHeader>
           <CardFooter>
             <Button
               onClick={handleLogin}
-              className="bg-green-400 hover:bg-green-500 rounded-none text-black w-full"
+              className="bg-green-400 hover:bg-green-500 rounded-none text-black w-full md:my-5"
               disabled={loading}
             >
               {loading ? (
@@ -44,7 +41,7 @@ export default function LoginComponent() {
               ) : (
                 <div className="flex items-center gap-2">
                   <img src="/WCALogo.svg" className="h-5 w-5" alt="wca-logo" />
-                  <span>Login with WCA</span>
+                  <span>Login</span>
                 </div>
               )}
             </Button>

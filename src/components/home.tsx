@@ -54,7 +54,7 @@ export default function HomeComponent() {
         {isAlertShow && (
           <AlertComponent show={isAlertShow} userInfo={userInfo} handleClick={handleClick} />
         )}
-        <section ref={ref1} className="w-full min-h-screen relative">
+        <section ref={ref1} className="w-full min-h-screen bg-black relative">
           <motion.div
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: isVisible1 ? 1 : 0, y: isVisible1 ? 0 : 0 }}
@@ -63,7 +63,7 @@ export default function HomeComponent() {
             <CubingKeralaGetStarted />
           </motion.div>
         </section>
-        <section ref={ref2} className="w-full  bg-muted">
+        <section ref={ref2} className="w-full bg-black">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible2 ? 1 : 0, y: isVisible2 ? 0 : 20 }}
@@ -72,7 +72,7 @@ export default function HomeComponent() {
             <CubingKeralaCalendars />
           </motion.div>
         </section>
-        <section ref={ref3}>
+        <section ref={ref3} className="bg-black">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible3 ? 1 : 0, y: isVisible3 ? 0 : 20 }}
@@ -80,7 +80,7 @@ export default function HomeComponent() {
             <CubingKeralaCubingLengends />
           </motion.div>
         </section>
-        <section ref={ref4} className="w-full">
+        <section ref={ref4} className="w-full bg-black">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isVisible4 ? 1 : 0, y: isVisible4 ? 0 : 20 }}

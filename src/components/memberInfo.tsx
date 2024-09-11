@@ -79,11 +79,11 @@ const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, me
 
 
     return (
-        <div className="min-h-screen bg-white text-black">
-            <main className="flex flex-col items-center p-4">
+        <div className="min-h-screen bg-black text-stone-200">
+            <main className="flex flex-col items-center p-4 cursor-default">
                 <div className="text-center">
                     <h2 className="text-3xl font-bold">{currentMember.name}</h2>
-                    <Badge variant="secondary">Cubing Kerala {(currentMember.role).split('')[0].toUpperCase() + (currentMember.role).slice(1)} </Badge>
+                    <Badge className='rounded-none bg-neutral-800 hover:bg-neutral-800 text-stone-200 border-none' variant="secondary">Cubing Kerala {(currentMember.role).split('')[0].toUpperCase() + (currentMember.role).slice(1)} </Badge>
                 </div>
                 <div className="w-full max-w-[200px] h-[200px] my-4">
                     <Avatar className="w-full h-full rounded-md">
@@ -93,21 +93,21 @@ const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, me
                 </div>
                 <div className="flex justify-center space-x-8 my-4">
                     <div className="text-center">
-                        <p className="text-xs text-muted-foreground">COUNTRY</p>
+                        <p className="text-xs text-neutral-500">COUNTRY</p>
                         <p className='text-sm font-semibold'>{(currentMember.country).toUpperCase()}</p>
                     </div>
                     <div className="text-center">
-                        <p className="text-xs text-muted-foreground">WCA ID</p>
+                        <p className="text-xs text-neutral-500">WCA ID</p>
                         <p className='text-sm font-semibold'>{currentMember.wcaid}</p>
                     </div>
                     <div className="text-center">
-                        <p className="text-xs text-muted-foreground">COMPETITIONS</p>
+                        <p className="text-xs text-neutral-500">COMPETITIONS</p>
                         <p className='text-sm font-semibold'>{currentMemberResult.competition_count}</p>
                     </div>
                 </div>
                 <div className="flex justify-center space-x-8 my-2">
                     <div className="text-center">
-                        <p className="text-xs text-muted-foreground">MEDALS</p>
+                        <p className="text-xs text-neutral-500">MEDALS</p>
                         <div className='flex justify-center space-x-2'>
                             <div className='flex justify-center items-center'>
                                 <p className='text-sm font-semibold'>{currentMemberResult.medals.gold}</p>
@@ -123,24 +123,24 @@ const MemberInfoComponent = ({ member, memberResult }: { member: RequestInfo, me
                     </div>
                 </div>
                 <div className="w-full max-w-4xl mt-5">
-                    <Table className='border'>
+                    <Table>
                         <TableHeader>
-                            <TableRow>
-                                <TableHead>Event</TableHead>
-                                <TableHead>NR</TableHead>
-                                <TableHead>CR</TableHead>
-                                <TableHead>WR</TableHead>
-                                <TableHead>Best</TableHead>
-                                <TableHead>Average</TableHead>
-                                <TableHead>WR</TableHead>
-                                <TableHead>CR</TableHead>
-                                <TableHead>NR</TableHead>
+                            <TableRow className='hover:bg-neutral-900 border-none'>
+                                <TableHead className='text-neutral-500'>Event</TableHead>
+                                <TableHead className='text-neutral-500'>NR</TableHead>
+                                <TableHead className='text-neutral-500'>CR</TableHead>
+                                <TableHead className='text-neutral-500'>WR</TableHead>
+                                <TableHead className='text-neutral-500'>Best</TableHead>
+                                <TableHead className='text-neutral-500'>Average</TableHead>
+                                <TableHead className='text-neutral-500'>WR</TableHead>
+                                <TableHead className='text-neutral-500'>CR</TableHead>
+                                <TableHead className='text-neutral-500'>NR</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {
                                 personalRecordsArray.map((event, index) => (
-                                    <TableRow key={index}>
+                                    <TableRow className='hover:bg-neutral-900 border-none' key={index}>
                                         <TableCell>
                                             <TooltipProvider>
                                                 <Tooltip>

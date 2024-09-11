@@ -36,11 +36,11 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                         <div className="flex space-x-4 py-5">
                             {
                                 upcomingCompetitions.map((competition, index) =>
-                                    <Link key={index} href={`/competitions/${competition.id}`}>
-                                        <Card className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
+                                    <Link prefetch={true} key={index} href={`/competitions/${competition.id}`}>
+                                        <Card className="bg-neutral-900 hover:bg-neutral-800 transition-all text-stone-400 min-w-[90vw] md:min-w-[400px] border-none cursor-pointer rounded-none">
                                             <CardContent className="p-6 h-[150px]">
-                                                <h3 className="text-xl font-bold mb-2">{competition.name}</h3>
-                                                <p className="text-muted-foreground text-wrap">
+                                                <h3 className="text-xl font-bold mb-2 text-stone-200">{competition.name}</h3>
+                                                <p className="text-wrap">
                                                     {competition.venue?.address}
                                                 </p>
                                                 <div className='text-xs'>
@@ -60,7 +60,7 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                     }
                                                 </div>
                                             </CardContent>
-                                            <CardFooter className="bg-muted py-3 px-5 flex justify-between items-center">
+                                            <CardFooter className="bg-neutral-950 py-3 px-5 flex justify-between items-center">
                                                 <span className='text-sm flex font-semibold items-center gap-1'>
                                                     {
                                                         competition.date.from === competition.date.till
@@ -69,7 +69,7 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                     }
                                                 </span>
                                                 <Link href={`https://www.worldcubeassociation.org/competitions/${competition.id}/register`}>
-                                                    <Button className="rounded-none bg-green-400 hover:bg-green-500 text-black" variant="outline" size="sm">
+                                                    <Button className="rounded-none border-none bg-green-400 hover:bg-green-500 text-black" variant="outline" size="sm">
                                                         Register
                                                     </Button>
                                                 </Link>
@@ -90,11 +90,11 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                         <div className="flex space-x-4 py-5">
                             {
                                 pastCompetitions.map((competition, index) =>
-                                    <Link key={index} href={`/competitions/${competition.id}`}>
-                                        <Card className="bg-background min-w-[90vw] md:min-w-[400px] cursor-pointer hover:shadow-lg border border-muted rounded-none">
+                                    <Link prefetch={true} key={index} href={`/competitions/${competition.id}`}>
+                                        <Card className="bg-neutral-900 hover:bg-neutral-800 transition-all text-stone-400 min-w-[90vw] md:min-w-[400px] border-none cursor-pointer rounded-none">
                                             <CardContent className="p-6 h-[150px]">
-                                                <h3 className="text-xl font-bold mb-2">{competition.name}</h3>
-                                                <p className="text-muted-foreground text-wrap">
+                                                <h3 className="text-xl font-bold mb-2 text-stone-200">{competition.name}</h3>
+                                                <p className="text-wrap">
                                                     {competition.venue?.address}
                                                 </p>
                                                 <div className='text-xs'>
@@ -114,7 +114,7 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                     }
                                                 </div>
                                             </CardContent>
-                                            <CardFooter className="bg-muted py-3 px-5 flex justify-between items-center">
+                                            <CardFooter className="bg-neutral-950 py-3 px-5 flex justify-between items-center">
                                                 <span className='text-sm flex font-semibold items-center gap-1'>
                                                     {
                                                         competition.date.from === competition.date.till
@@ -122,7 +122,7 @@ const UpPastCompetitions = ({ response }: { response: ApiResonse }) => {
                                                             : `${new Date(competition.date.from).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${new Date(competition.date.till).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`
                                                     }
                                                 </span>
-                                                <Button className="rounded-none" disabled variant="outline" size="sm">
+                                                <Button className="rounded-none bg-red-500 hover:bg-red-600 border-none text-black" variant="outline" size="sm">
                                                     Completed
                                                 </Button>
                                             </CardFooter>

@@ -18,20 +18,20 @@ const CubingKeralaNavbar = () => {
   }, []);
 
   return (
-    <header className="bg-background shadow-sm py-2">
+    <header className="bg-black text-stone-200 shadow-sm py-2">
       <div className="container space-y-3 md:space-y-0 md:flex items-center justify-between h-20 md:h-18 py-2 md:py-6 px-4 md:px-6">
-        <Link href="/" className="flex items-center justify-start gap-2" prefetch={false}>
+        <Link href="/" className="flex items-center justify-start gap-2" prefetch={true}>
           <CuboidIcon className="w-6 h-6" />
           <span className="text-lg font-semibold">Cubing Kerala</span>
         </Link>
         <nav className="flex items-center justify-between gap-6">
-          <Link href="/competitions" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="/competitions" className="text-sm font-medium hover:underline underline-offset-4" prefetch={true}>
             Competitions
           </Link>
-          <Link href="/members" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="/members" className="text-sm font-medium hover:underline underline-offset-4" prefetch={true}>
             Members
           </Link>
-          <Link href="/rankings" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
+          <Link href="/rankings" className="text-sm font-medium hover:underline underline-offset-4" prefetch={true}>
             Rankings
           </Link>
           {
@@ -39,7 +39,7 @@ const CubingKeralaNavbar = () => {
               <Link
                 href="/login"
                 className="text-sm font-medium hover:underline underline-offset-4"
-                prefetch={false}
+                prefetch={true}
               >
                 Login
               </Link>

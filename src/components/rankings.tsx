@@ -4,12 +4,10 @@ import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@
 
 export default async function RankingsComponent() {
 
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-
   return (
-    <div className="w-full mx-auto py-6 md:py-8 px-4 md:px-6">
+    <div className="w-full mx-auto py-6 md:py-8 px-4 md:px-6 text-stone-200">
       <h1 className="text-3xl font-bold text-center mb-5">Rankings</h1>
-      <div className="flex items-center justify-center gap-3 md:justify-between mb-6">
+      {/* <div className="flex items-center justify-center gap-3 md:justify-between mb-6">
         <SearchComponent />
         <div>
           <FilterComponent/>
@@ -88,7 +86,7 @@ export default async function RankingsComponent() {
             </TableRow>
           </TableBody>
         </Table>
-      </div>
+      </div> */}
     </div>
   )
 }
